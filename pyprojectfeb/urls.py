@@ -1,6 +1,7 @@
 from app1.views import xyz
-from app1.views import abc
+from app1.views import signIn
 from app1.views import signUp
+from app1.views import logIn
 """pyprojectfeb URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -22,7 +23,8 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('xyz/', xyz),
-    path('abc/', abc),
+    path('signIn/', signIn),
     path('signUp/', signUp),
+    path('logIn/', logIn),
 
 ]

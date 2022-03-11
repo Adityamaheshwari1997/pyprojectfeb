@@ -5,7 +5,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box}
 
 /* Full-width input fields */
-input[type=text], input[type=password] {
+input[type=text], input[type=password],input[type=tel]{
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -14,7 +14,7 @@ input[type=text], input[type=password] {
   background: #f1f1f1;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+input[type=text]:focus, input[type=password]:focus ,input[type=tel]:focus {
   background-color: #ddd;
   outline: none;
 }
@@ -87,7 +87,7 @@ return false;}
 </script>
 <body>
 
-<form action="/signUp" onsubmit="return validation()" style="border:1px solid #ccc">
+<form action="/signUp" onsubmit="return validation()" method="get" style="border:1px solid #ccc">
   <div class="container">
     <h1>Sign Up</h1>
     <p>Please fill in this form to create an account.</p>
@@ -101,6 +101,13 @@ return false;}
 
     <label for="psw-repeatid"><b>Repeat Password</b></label>
     <input type="password" placeholder="Repeat Password" name="psw-repeat" id ="psw-repeatid" required>
+
+    <label for ="mobile_id"><b>Enter Your Mobile Number</b></label>
+    <input type="tel" id="mobile_id" name="Mobile_name" pattern = "(0|91)?[6-9]{9}" placeholder="123-456-7890" required><br>
+
+    <label for="gender"> <b>Select you gender</b></label>
+    <input type="radio" name="gender" id="gender" value="Male"> Male
+    <input type="radio" name="gender" id="gender" value="Female"> Female
 
     <label>
       <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
