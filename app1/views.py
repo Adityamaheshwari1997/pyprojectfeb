@@ -1,5 +1,6 @@
 from django.db import connection
 from django.shortcuts import render
+from django.core.mail import send_mail
 import random
 
 
@@ -31,6 +32,12 @@ def signUp(request):
         query = "insert into users(email,psw,mobile,gender,otp)values(%s,%s,%s,%s,%s)"
         values = (email,psw,mobile,gender,strotp)
         cursor.execute(query,values)
+
+
+        body = 'your otp for our portal you signed up with this email '+ email + ' is ' +strotp
+        send_mail('OTP for verification',body,'adityamaheshwari146@gmail.com',[email])
+
+
         data = {"email": email, "password": psw, "mobile": mobile, "gender": gender}
         return render(request, "signupsuccess.html", data)
 
