@@ -6,22 +6,17 @@ import random
 # Create your views here.
 def xyz(request):
     return render(request, "index.html")
-
-
 def signIn(request):
- #   value1 = request.GET['value1']
-  #  value2 = request.GET['value2']
-   # if "sum" == 'sum':
-    #    value3 = value1 + value2
-    #else:
-     #   value3 = value1-val
     return render(request, "index2.html")
 
+
+
+
 def signUp(request):
-    email = request.GET['email']
-    psw = request.GET['psw']
-    mobile = request.GET['Mobile_name']
-    gender = request.GET['gender']
+    email = request.POST['email']
+    psw = request.POST['psw']
+    mobile = request.POST['Mobile_name']
+    gender = request.POST['gender']
 
     cursor = connection.cursor()
     query1 = "select * from users where email =  '" + email + " ' "
@@ -38,14 +33,6 @@ def signUp(request):
         cursor.execute(query,values)
         data = {"email": email, "password": psw, "mobile": mobile, "gender": gender}
         return render(request, "signupsuccess.html", data)
-
-
-    #checkemail = cursor.execute(query,values,'SELECT email FROM users WHERE email = %(email)s', { 'email' : email })
-    #if checkemail != 0:
-     #   print('Username is not exist')
-    #else:
-    #    print('Logged In!')
-
 
     #query = "select customerName from customer where customerNumber = '"+psw+" '"
     #cursor.execute(query)
@@ -70,4 +57,26 @@ def logIn(request):
         else:
             data = {"email": "password is incorrect"}
             return render(request, "T1.html", data)
+
+def otpVerification(request):
+    email = request.GET['email']
+    otp = request.GET['otp']
+
+    cursor = connection.cursor()
+    query = "select * from users where email = '"+email+" '"
+    cursor.execute(query)
+    row = cursor.fetchone()
+
+    if row is not None:
+        if row[5] == otp:
+            query1 = "update users set is_verify = True where email = '"+email+" '"
+            cursor.execute(query1)
+            if cursor.rowcount == 1:
+                print("OTP verified Successfully")
+                data = {"email": "OTP verified Successfully"}
+                return render(request, "T1.html", data)
+        else:
+            data = {"email": "please enter correct OTP"}
+            return render(request, "T1.html", data)
+
 

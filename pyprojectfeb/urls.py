@@ -2,6 +2,8 @@ from app1.views import xyz
 from app1.views import signIn
 from app1.views import signUp
 from app1.views import logIn
+from app1.views import otpVerification
+
 """pyprojectfeb URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -26,5 +28,5 @@ urlpatterns = [
     path('signIn/', signIn),
     path('signUp/', signUp),
     path('logIn/', logIn),
-
+    path('otpVerification/', otpVerification),
 ]
