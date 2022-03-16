@@ -1,8 +1,10 @@
-from app1.views import xyz
+from app1.views import xyz, handlingShortUrl
 from app1.views import signIn
 from app1.views import signUp
 from app1.views import logIn
 from app1.views import otpVerification
+from app1.views import urlshortner
+from app1.views import forgetPsw
 
 """pyprojectfeb URL Configuration
 
@@ -29,4 +31,7 @@ urlpatterns = [
     path('signUp/', signUp),
     path('logIn/', logIn),
     path('otpVerification/', otpVerification),
+    path('urlshortner/',urlshortner),
+    path('forgetPsw/',forgetPsw),
+    path('<url>/', handlingShortUrl),
 ]
