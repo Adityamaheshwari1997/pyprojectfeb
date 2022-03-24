@@ -4,7 +4,9 @@ from django.db import connection
 from django.shortcuts import render
 from django.core.mail import send_mail
 from django.shortcuts import redirect
+from django.http import JsonResponse
 import random
+
 
 
 # Create your views here.
@@ -51,20 +53,28 @@ def signUp(request):
     #print(row)
 
 def logIn(request):
-    email = request.GET['uname']
-    psw = request.GET['psw']
+    email = request.POST['uname']
+    psw = request.POST['psw']
 
     cursor =connection.cursor()
-    query = "select * from users where email = '"+email+" '"
-    cursor.execute(query)
+
+    # query = "select * from users where email = '"+email+" '"
+    # cursor.execute(query)
+
+    values = [email]
+    res = cursor.callproc('signin',values)
     row = cursor.fetchone()
     if row is None:
         data = {"email": "Signin First...."}
         return render(request, "index.html", data)
     else:
         if row[2] == psw:
-            data = {"email": email, "password": psw}
-            return render(request, "T1.html", data)
+            cursor = connection.cursor()
+            query = "select * from links where created_by = '" + email + " '"
+            cursor.execute(query)
+            row = cursor.fetchall()
+            row = {"row":row}
+            return render(request, "Afterlogin.html", row)
         else:
             data = {"email": "password is incorrect"}
             return render(request, "T1.html", data)
@@ -74,8 +84,11 @@ def otpVerification(request):
     otp = request.GET['otp']
 
     cursor = connection.cursor()
-    query = "select * from users where email = '"+email+" '"
-    cursor.execute(query)
+    # query = "select * from users where email = '"+email+" '"
+    # cursor.execute(query)
+    
+    values = [email]
+    res = cursor.callproc('signin', values)
     row = cursor.fetchone()
 
     if row is not None:
@@ -111,7 +124,7 @@ def urlshortner(request):
             values = (longlink, customurl)
             cursor.execute(query, values)
 
-            data = {"email": "your URL is shorting with name.co/"+customurl}
+            data = {"email": "your URL is shorting with Adi.cc/"+customurl}
             return render(request, "T1.html", data)
 
     if shortURL is not None or shortURL != '':
@@ -153,3 +166,22 @@ def handlingShortUrl(request, **kwargs):
         return render(request, "home.html")
     else:
         return redirect(row[0])
+
+def edit(request):
+    value = request.GET['id']
+
+    cursor = connection.cursor()
+    query = "select * from links where id = '" + value + " '"
+    cursor.execute(query)
+    row = cursor.fetchone()
+
+    data = {"data": row}
+    return render(request, "Editoption.html", data)
+
+def generateShortURLApi(request):
+    letters = string.ascii_letters + string.digits
+    shortURL = ''
+
+    for i in range(6):
+        shortURL =shortURL+ ''.join(random.choice(letters))
+    return JsonResponse({"shortURL": shortURL, "response": "success"})

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit link</title>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h2>Data Table</h2>
+
+<table>
+  <tr>
+    <th>id</th>
+    <th>Long_url</th>
+    <th>Short_url</th>
+  </tr>
+  <tr>
+    <td>{{data.0}}</td>
+    <td>{{data.1}}</td>
+    <td>{{data.2}}</td>
+      <form action="/AfterLogin">
+      <td><button type="submit">save</button> </td>
+    </form>
+  </tr>
+</table>
+
+</body>
+</html>
+
