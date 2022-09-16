@@ -11,6 +11,7 @@ import random
 
 # Create your views here.
 def xyz(request):
+<<<<<<< HEAD
     return render(request, "home.html")
 def signIn(request):
     return render(request, "index2.html")
@@ -18,6 +19,12 @@ def signIn(request):
 
 
 
+=======
+    return render(request, "index.html")
+def signIn(request):
+    return render(request, "index2.html")
+
+>>>>>>> 0f5a11c (new pc git try)
 def signUp(request):
     email = request.POST['email']
     psw = request.POST['psw']
@@ -86,7 +93,11 @@ def otpVerification(request):
     cursor = connection.cursor()
     # query = "select * from users where email = '"+email+" '"
     # cursor.execute(query)
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 0f5a11c (new pc git try)
     values = [email]
     res = cursor.callproc('signin', values)
     row = cursor.fetchone()
@@ -149,13 +160,20 @@ def generateShortURL():
     shortURL = ''
 
     for i in range(6):
+<<<<<<< HEAD
         shortURL =shortURL+ ''.join(random.choice(letters))
+=======
+        shortURL = shortURL+ ''.join(random.choice(letters))
+>>>>>>> 0f5a11c (new pc git try)
     return shortURL
 
 def forgetPsw(request):
     return render(request)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0f5a11c (new pc git try)
 def handlingShortUrl(request, **kwargs):
     url = kwargs.get('url')
     cursor = connection.cursor()
